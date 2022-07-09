@@ -1,0 +1,789 @@
+import random
+def exit1():
+    choice=input("Do you want to exit the game.Enter y for yes, enter n for no: ")
+    choice=choice.upper()
+    while choice!='Y' or choice!='N':
+        if choice =='Y':
+            break
+        elif choice=='N':
+            return 0 #it is used in exit option in again message/task
+            break
+        else:
+            print("You entered invalid choice.Please enter y to exit or n to continue. ")
+            choice=input("Do you want to exit the game.Enter y for yes, enter n for no: ")
+            choice=choice.upper()
+        continue
+def help():
+    print('''Basic Guide\n Multiplayer\n1. Player 1 enter name and select symbol. \n2. Player 2 enter name and symbol assigned to player 2 other than symbol selected by player 1
+            \n3. Player 1 will toss and Player 2 will have to select either head or tail if it matched with selected head or tail by player 1 then Player 2 will win the toss or
+            loss if guess not match.\n4. Winning Conditions:\n1.Horizontal''')
+    print('''x|x|x\n_|_|_\n | | \nOr\n_|_|_\nx|x|x\n | | \nOr\n_|_|_\n_|_|_\nx|x|x    
+     ''')
+    print('''2. Vertical\nx|_|_\nx|_|_\nx| | \nOr\n_|x|_\n_|x|_\n |x| \nOr\n_|_|x\n_|_|x\n | |x
+     ''')
+    print('''3. Diagonal\nx|_|_\n_|x|_\n | |x\nOr\n_|_|x\n_|x|_\nx| | ''')
+    print('''6. To pause during game enter p and to continue enter c or C.\n7.After first match it ask for whether you want to play again or not, if you want to play then enter
+y for yes, if not than enter n for no than it ask for exit\n Exit\nIn exit it will ask you that do you want to exit the game if you enter y the game will exit if n then 
+main menu will appear again\n''')
+    print('''Single Player\n1. Player 1 enter name and select symbol.\n2. Symbol assigned to computer is other than the symbol selected by player 1.\n
+3. Computer will toss and Player 1 will have to select either head or tail if it matched with selected head or tail by player 1 then Player 2 will win the toss or loss if 
+guess not match ''')
+'''multiplayer is actual game. Help contain instructions about game.Exit to exit the game'''
+def mode(): #User will select one of them to continue 
+    mode=input("    Press 1 for Multiplayer\n    Press 2 for Single Player\n    Press 3 for Exit\n    Press 4 for help\n\nEnter one of the above: ")
+    while mode!=1 or mode!=2 or mode!=3 or mode!=4:
+        if mode=='1':
+            s=1
+            return s
+            break
+        elif mode=='2':
+            s=2
+            return s
+            break
+        elif mode=='3':
+            s=3
+            return s
+            break
+        elif mode=='4':
+            s=4
+            return s
+            break
+        else:#in case of error
+            print('Invalid input, Please select again.')
+            print('''                               ----TIC TAC TOE GAME----''')
+            mode=input("    Press 1 for Multiplayer\n    Press 2 for Single Player\n    Press 3 for Exit\n    Press 4 for help\n\nEnter one of the above: ")
+            continue
+def main():
+    again='Y'
+    while again=='Y':
+        
+        
+        print('''                               ----TIC TAC TOE GAME----''')
+        mode_check=mode()
+        if mode_check==3:#for exit it will call exit function
+            choice1=exit1()#if mode function return 1
+            if choice1==0:
+                again='Y'
+                continue
+            break
+        elif mode_check==4:#if mode function return 0
+            help()
+            again='Y'
+            continue
+        elif mode_check==1:#if mode function return 2
+            print('''                               -------Multiplayer------''')
+            print('''                               ----Enter Your Names----''')
+            name_1= input("Player 1 enter your name: ")
+            name_1=name_1.upper()
+            symbol_name_1=input(f"{name_1} choose the symbol o or x: ")
+            symbol_name_1=symbol_name_1.upper()
+            while symbol_name_1!='O' or symbol_name_1!='X':
+                if symbol_name_1=='O':
+                    input1='O' #input of player_1
+                    print(f'{name_1} your symbol is {input1}')
+                    name_2= input("Player 2 Enter your name: ")
+                    name_2=name_2.upper()
+                    input2='X'
+                    print(f'{name_2} your symbol is {input2}')
+                    break
+                elif symbol_name_1=='X':
+                    input1='X' #input of player_1
+                    print(f'{name_1} your symbol is {input1}')
+                     
+                    name_2= input("Player 2 Enter your name: ")
+                    name_2=name_2.upper()
+                    input2='O'#input of player_2
+                    print(f'{name_2} your symbol is {input2}')
+                    break
+                else: #in case of wrong input.
+                    print('Invalid input. Please enter o or x.')
+                    symbol_name_1=input(f"{name_1} Choose the symbol o or x: ")
+                    symbol_name_1=symbol_name_1.upper()
+                    continue
+            
+                
+            
+            def toss_check():#toss 
+                toss=random.randint(0,1)
+                if toss==1: #to compare with the players toss choice
+                    toss='HEAD'
+                else:
+                    toss='TAIL'
+                print('Player_1 is tossing.')
+                toss_name_2=input("Player 2 select either head or tail:Enter 0 for head or 1 for tail: ")
+                        #toss winning condition
+                while toss_name_2!='0' or toss_name_2!='1':
+                    if toss_name_2=='0' or toss_name_2=='1':
+                        if (toss=='HEAD' and toss_name_2=='0') or (toss=='TAIL' and toss_name_2=='1'):
+                            print(f"{name_2} your guess is right.You won the toss!")
+                            return 1
+                            break
+                        elif (toss=='HEAD' and toss_name_2!='HEAD') or (toss=='TAIL' and toss_name_2!='TAIL'):
+                            print(f"{name_2} your guess is wrong.{name_1} won the toss!")
+                            return 0
+                            break
+                    else :
+                        toss_name_2=input("Invalid Input.Select either head or tail:Enter 0 for head or 1 for tail: ")
+                        continue
+                    
+            print(' 1 | 2 | 3 ')
+            print('---+---+---')
+            print(' 4 | 5 | 6 ')
+            print('---+---+---')
+            print(' 7 | 8 | 9 ')
+            print('_____________________')       
+            #symbol depend upon the toss_check.Player who won the toss will select the symbol
+            check3=toss_check()#toss_check function call
+            if check3==1:# if name_1 is tosswinner 
+                winner=name_2.upper()
+                loss=name_1.upper()
+                
+            elif check3==0:#if name_2 won the toss
+                winner=name_1.upper()
+                loss=name_2.upper()
+                
+            board ={
+                '1': '1', '2': '2', '3': '3', 
+                '4': '4', '5': '5', '6': '6',
+                '7': '7', '8': '8', '9': '9',
+            }
+                
+            player = 1 # to initialise first player
+            total_moves = 0 # to count the moves
+            end_check = 0 # to check if player 1 or player 2 wins
+                
+
+
+            def check () :
+                #each if for tosswinner and elif for tosslosser
+                    # for horizontal(start)
+                if board['1'] == f'{input1}' and board['2'] ==f'{input1}' and board['3'] ==f'{input1}':
+                    print(f'{winner} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['1'] == f'{input2}' and board['2'] ==f'{input2}' and board['3'] ==f'{input2}':
+                    print(f'{loss} win!\n                               ------Game Over------\n')
+                    return 1
+                if board['4'] == f'{input1}' and board['5'] ==f'{input1}' and board['6'] ==f'{input1}':
+                    print(f'{winner} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['4'] == f'{input2}' and board['5'] ==f'{input2}' and board['6'] ==f'{input2}':
+                    print(f'{loss} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['7'] ==f'{input1}' and board['8'] ==f'{input1}' and board['9'] ==f'{input1}':
+                    print(f'{winner} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['7'] ==f'{input2}' and board['8'] ==f'{input2}' and board['9'] ==f'{input2}':
+                    print(f'{loss} won!\n                               ------Game Over------\n')
+                    return 1
+                    # for diagonal
+                if board['1'] ==f'{input1}' and board['5'] ==f'{input1}' and board['9'] ==f'{input1}':
+                    print(f'{winner} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['1'] ==f'{input2}' and board['5'] ==f'{input2}' and board['9'] ==f'{input2}':
+                    print(f'{loss} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['3'] ==f'{input1}' and board['5'] ==f'{input1}' and board['7'] ==f'{input1}':
+                    print(f'{winner} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['3'] ==f'{input2}' and board['5'] ==f'{input2}' and board['7'] ==f'{input2}':
+                    print(f'{loss} won!\n                               ------Game Over------\n')
+                    return 1
+                    #for vertical
+                if board['1'] ==f'{input1}' and board['4'] ==f'{input1}' and board['7'] ==f'{input1}':
+                    print(f'{winner} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['1'] ==f'{input2}' and board['4'] ==f'{input2}' and board['7'] ==f'{input2}':
+                    print(f'{loss} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['2'] ==f'{input1}' and board['5'] ==f'{input1}' and board['8'] ==f'{input1}':
+                    print(f'{winner} won!')
+                    return 1
+                elif board['2'] ==f'{input2}' and board['5'] ==f'{input2}' and board['8'] ==f'{input2}':
+                    print(f'{loss} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['3'] ==f'{input1}' and board['6'] ==f'{input1}' and board['9'] ==f'{input1}':
+                    print(f'{winner} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['3'] ==f'{input2}' and board['6'] ==f'{input2}' and board['9'] ==f'{input2}':
+                    print(f'{loss} won!\n                               ------Game Over------\n')
+                    return 1
+                return 0
+                #this while loop is used to terminate program on basis of total_moves or end_check
+                # while loop
+            while True:# this loop will be true while end_check or total_moves are true
+                
+                print(' '+board['1']+' |'+' '+board['2']+' |'+' '+board['3'])
+                print('---+---+---')
+                print(' '+board['4']+' |'+' '+board['5']+' |'+' '+board['6'])
+                print('---+---+---')
+                print(' '+board['7']+' |'+' '+board['8']+' |'+' '+board['9'])
+                print('_____________________')
+                end_check = check()
+                if end_check==1:
+                    break
+                elif total_moves==9:
+                    print('''Match is drawn.\n                      ----Game over----\n''')
+                    break
+                
+        #inner loop for input from players 
+                while True: 
+                    if player == 1: #choose player
+                        p1_input =input(f'\n{winner} your turn.Enter the position 1-9: ')
+                        p1_input=p1_input.upper()
+                        if p1_input=='P': #for pause
+                            pause1=input("Game is pause.Press c or C to continue: ")
+                            pause1=pause1.upper()
+                            while pause1!='C':
+                                pause1=input("Game is pause.Press c or C to continue: ")
+                                pause1=pause2.upper()
+                                if pause1=='C':
+                                    break
+                                else:
+                                    pause1=input("Game is pause.Press c or C to continue: ")
+                                    pause1=pause1.upper()
+                                    continue
+                            continue
+                        if p1_input in board and (board[p1_input]=='1'or board[p1_input]=='2' or board[p1_input]=='3'or board[p1_input]=='4' or board[p1_input]=='5' or board[p1_input]=='6' or board[p1_input]=='7' or board[p1_input]=='8' or board[p1_input]=='9'):
+                            board[p1_input]=f'{input1}'
+                            player = 2
+                            break
+                            #on wrong input
+                        else:
+                            if p1_input!='1' or p1_input!='2' or p1_input!='3' or p1_input!='4' or p1_input!='5' or p1_input!='6'or p1_input!='7' or p1_input!='8' or p1_input!='9':
+                                print('Invalid input, please try again')
+                                continue
+                            elif board[p1_input]=='X' or board[p1_input]=='O':
+                                print('This position is occupied, please enter another position which is empty.')
+                                continue
+                    else:
+                        p2_input = input(f'\n{loss} your turn.Enter the position 1-9: ')
+                        p2_input=p2_input.upper()
+                        if p2_input=='P':#for pause
+                            pause2=input("Game is pause.Press c or C to continue: ")
+                            pause2=pause2.upper()
+                            while pause2!='C':
+                                pause2=input("Game is pause.Press c or C to continue: ")
+                                pause2=pause2.upper()
+                                if pause2=='C':
+                                    break
+                                else:
+                                    pause2=input("Game is pause.Press c or C to continue: ")
+                                    pause2=pause2.upper()
+                                    continue
+                            continue
+                            
+                        if p2_input in board and (board[p2_input]=='1'or board[p2_input]=='2' or board[p2_input]=='3'or board[p2_input]=='4' or board[p2_input]=='5' or board[p2_input]=='6' or board[p2_input]=='7' or board[p2_input]=='8' or board[p2_input]=='9'):
+                            board[p2_input]=f'{input2}'
+                            player = 1
+                            break
+                            # on wrong input
+                        else:
+                            if p2_input!='1' or p2_input!='2' or p2_input!='3' or p2_input!='4' or p2_input!='5' or p2_input!='6'or p2_input!='7' or p2_input!='8' or p2_input!='9':
+                                print('Invalid input, please try again')
+                                continue
+                            elif board[p2_input]=='X' or board[p2_input]=='O':
+                                print('This position is occupied, please enter another position which is empty.')
+                                continue
+                total_moves += 1
+                print('_____________________')
+
+        
+            again=input("Want to play again. Press y for yes or n for no: ")
+            again=again.upper()
+            
+            while again!='N' or again!='Y':
+                if again=='Y':
+                    break
+                elif again=='N':
+                    choice1=exit1()
+                    if choice1==0:
+                        again='Y'
+                    break
+                else:
+                    print('Invalid input. Please enter Y for yes or N for no.')
+                    again=input('Want to play again: ')
+                    again=again.upper()  
+                    continue
+                continue
+        elif mode_check==2:
+            print('''                               ------Singleplayer------''')
+            print('''                               ----Enter Your Name-----''')
+            name_1= input("Player 1 enter your name: ")
+            name_1=name_1.upper()
+            symbol_name_1=input(f"{name_1} choose the symbol o or x: ")
+            symbol_name_1=symbol_name_1.upper()
+            while symbol_name_1!='O' or symbol_name_1!='X':
+                if symbol_name_1=='O':
+                    input1='O' #input of player_1
+                    print(f'{name_1} your symbol is {input1}')
+                    name_2= 'Computer'
+                    name_2=name_2.upper()
+                    input2='X'
+                    print(f'{name_2} your symbol is {input2}')
+                    break
+                elif symbol_name_1=='X':
+                    input1='X' #input of player_1
+                    print(f'{name_1} your symbol is {input1}')
+                     
+                    name_2= 'Computer'
+                    name_2=name_2.upper()
+                    input2='O'#input of player_2
+                    print(f'{name_2} your symbol is {input2}')
+                    break
+                else: #in case of wrong input.
+                    print('Invalid input. Please enter o or x.')
+                    symbol_name_1=input(f"{name_1} Choose the symbol o or x: ")
+                    symbol_name_1=symbol_name_1.upper()
+                    continue
+            
+                
+            
+            def toss_check():#toss 
+                toss=random.randint(0,1)
+                if toss==1: #to compare with the players toss choice
+                    toss='HEAD'
+                else:
+                    toss='TAIL'
+                print(f'{name_2} is tossing.')
+                toss_name_1=input("Player_1 select either head or tail:Enter 0 for head or 1 for tail: ")
+                        #toss winning condition
+                while toss_name_1!='0' or toss_name_1!='1':
+                    if toss_name_1=='0' or toss_name_1=='1':
+                        if (toss=='HEAD' and toss_name_1=='0') or (toss=='TAIL' and toss_name_1=='1'):
+                            print(f"{name_1} your guess is right.You won the toss!")
+                            return 1
+                            break
+                        elif (toss=='HEAD' and toss_name_1!='HEAD') or (toss=='TAIL' and toss_name_1!='TAIL'):
+                            print(f"{name_1} your guess is wrong.{name_2} won the toss!")
+                            return 0
+                            break
+                    else :
+                        toss_name_2=input("Invalid Input.Select either head or tail:Enter 0 for head or 1 for tail: ")
+                        continue
+                    
+            board ={
+                '1': '1', '2': '2', '3': '3',
+                '4': '4', '5': '5', '6': '6',
+                '7': '7', '8': '8', '9': '9',
+            }
+                
+            player = 1 # to initialise first player
+            total_moves = 0 # to count the moves
+            end_check = 0 # to check if player 1 or player 2 wins
+
+            #symbol depend upon the toss_check.Player who won the toss will select the symbol
+            check3=toss_check()#toss_check function call
+            if check3==1:# if name_1 is tosswinner 
+                winner=name_1.upper()
+                loss=name_2.upper()
+                
+            elif check3==0:#if name_2 won the toss
+                winner=name_2.upper()
+                loss=name_1.upper()
+                player=2
+            print(' 1 | 2 | 3 ')
+            print('---+---+---')
+            print(' 4 | 5 | 6 ')
+            print('---+---+---')
+            print(' 7 | 8 | 9 ')
+            print('_____________________')
+
+
+            def check () :
+                #each if for Player_1 and elif for Computer
+                    # for horizontal(start)
+                if board['1'] == f'{input1}' and board['2'] ==f'{input1}' and board['3'] ==f'{input1}':
+                    print(f'{name_1} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['1'] == f'{input2}' and board['2'] ==f'{input2}' and board['3'] ==f'{input2}':
+                    print(f'{name_2} win!\n                               ------Game Over------\n')
+                    return 1
+                if board['4'] == f'{input1}' and board['5'] ==f'{input1}' and board['6'] ==f'{input1}':
+                    print(f'{name_1} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['4'] == f'{input2}' and board['5'] ==f'{input2}' and board['6'] ==f'{input2}':
+                    print(f'{name_2} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['7'] ==f'{input1}' and board['8'] ==f'{input1}' and board['9'] ==f'{input1}':
+                    print(f'{name_1} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['7'] ==f'{input2}' and board['8'] ==f'{input2}' and board['9'] ==f'{input2}':
+                    print(f'{name_2} won!\n                               ------Game Over------\n')
+                    return 1
+                    # for diagonal
+                if board['1'] ==f'{input1}' and board['5'] ==f'{input1}' and board['9'] ==f'{input1}':
+                    print(f'{name_1} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['1'] ==f'{input2}' and board['5'] ==f'{input2}' and board['9'] ==f'{input2}':
+                    print(f'{name_2} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['3'] ==f'{input1}' and board['5'] ==f'{input1}' and board['7'] ==f'{input1}':
+                    print(f'{name_1} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['3'] ==f'{input2}' and board['5'] ==f'{input2}' and board['7'] ==f'{input2}':
+                    print(f'{name_2} won!\n                               ------Game Over------\n')
+                    return 1
+                    #for vertical
+                if board['1'] ==f'{input1}' and board['4'] ==f'{input1}' and board['7'] ==f'{input1}':
+                    print(f'{name_1} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['1'] ==f'{input2}' and board['4'] ==f'{input2}' and board['7'] ==f'{input2}':
+                    print(f'{name_2} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['2'] ==f'{input1}' and board['5'] ==f'{input1}' and board['8'] ==f'{input1}':
+                    print(f'{name_1} won!')
+                    return 1
+                elif board['2'] ==f'{input2}' and board['5'] ==f'{input2}' and board['8'] ==f'{input2}':
+                    print(f'{name_2} won!\n                               ------Game Over------\n')
+                    return 1
+                if board['3'] ==f'{input1}' and board['6'] ==f'{input1}' and board['9'] ==f'{input1}':
+                    print(f'{name_1} won!\n                               ------Game Over------\n')
+                    return 1
+                elif board['3'] ==f'{input2}' and board['6'] ==f'{input2}' and board['9'] ==f'{input2}':
+                    print(f'{name_2} won!\n                               ------Game Over------\n')
+                    return 1
+                return 0
+                #this while loop is used to terminate program on basis of total_moves or end_check
+                # while loop
+            while True:# this loop will be true while end_check or total_moves are true
+                
+                
+                print(' '+board['1']+' |'+' '+board['2']+' |'+' '+board['3'])
+                print('---+---+---')
+                print(' '+board['4']+' |'+' '+board['5']+' |'+' '+board['6'])
+                print('---+---+---')
+                print(' '+board['7']+' |'+' '+board['8']+' |'+' '+board['9'])
+                print('_____________________')
+                end_check = check()
+                if end_check==1:
+                    break
+                elif total_moves==9:
+                    print("Match is drawn.\n                               ------Game Over------\n")
+                    break
+                
+                #inner loop for input from players 
+                while True: 
+                    if player == 1: #choose player
+                        p1_input = input(f'\n{name_1} enter the position 1-9: ')
+                        p1_input=p1_input.upper()
+                        if p1_input=='P': #for pause
+                            pause2=input("Game is pause.Press c or C to continue: ")
+                            pause2=pause2.upper()
+                            while pause2!='C':
+                                pause2=input("Game is pause.Press c or C to continue: ")
+                                pause2=pause2.upper()
+                                if pause2=='C':
+                                    break
+                                continue
+                        if p1_input in board and (board[p1_input]=='1'or board[p1_input]=='2' or board[p1_input]=='3'or board[p1_input]=='4' or board[p1_input]=='5' or board[p1_input]=='6' or board[p1_input]=='7' or board[p1_input]=='8' or board[p1_input]=='9'):
+                            board[p1_input]=f'{input1}'
+                            player = 2
+                            break
+                            #on wrong input
+                        else:
+                            if p1_input!='X' or p1_input!='O':
+                                print('Invalid input, please try again')
+                                continue
+                            elif board[p1_input]=='X' or board[p1_input]=='O':
+                                print('This position is occupied, please enter another position which is empty.')
+                                continue
+                    else:
+                        print('\nComputer is making his move.')
+                        # diagonal
+                        if board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        # win colum 1
+                        elif board['1']==f'{input2}' and board['4']==f'{input2}' and board['7']=='7':
+                            board['7']=f'{input2}'
+                            player=1
+                            break
+                        elif board['4']==f'{input2}' and board['7']==f'{input2}' and board['1']=='1':
+                            board['1']=f'{input2}'
+                            player=1
+                            break
+                        elif board['1']==f'{input2}' and board['7']==f'{input2}' and board['4']=='4':
+                            board['4']=f'{input2}'
+                            player=1
+                            break
+                        # win colum 2
+                        elif board['2']==f'{input2}' and board['5']==f'{input2}' and board['8']=='8':
+                            board['8']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input2}' and board['8']==f'{input2}' and board['2']=='2':
+                            board['2']=f'{input2}'
+                            player=1
+                            break
+                        elif board['2']==f'{input2}' and board['8']==f'{input2}' and board['4']=='4':
+                            board['4']=f'{input2}'
+                            player=1
+                            break
+                        # win colum 3
+                        elif board['3']==f'{input2}' and board['6']==f'{input2}' and board['9']=='9':
+                            board['9']=f'{input2}'
+                            player=1
+                            break
+                        elif board['6']==f'{input2}' and board['9']==f'{input2}' and board['3']=='3':
+                            board['3']=f'{input2}'
+                            player=1
+                            break
+                        elif board['3']==f'{input2}' and board['9']==f'{input2}' and board['6']=='6':
+                            board['6']=f'{input2}'
+                            player=1
+                            break
+                        # win row 1
+                        elif board['1']==f'{input2}' and board['2']==f'{input2}' and board['3']=='3':
+                            board['3']=f'{input2}'
+                            player=1
+                            break
+                        elif board['2']==f'{input2}' and board['3']==f'{input2}' and board['1']=='1':
+                            board['1']=f'{input2}'
+                            player=1
+                            break
+                        elif board['1']==f'{input2}' and board['3']==f'{input2}' and board['2']=='2':
+                            board['2']=f'{input2}'
+                            player=1
+                            break
+                        # win row 2
+                        elif board['4']==f'{input2}' and board['5']==f'{input2}' and board['6']=='6':
+                            board['6']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input2}' and board['6']==f'{input2}' and board['4']=='4':
+                            board['4']=f'{input2}'
+                            player=1
+                            break
+                        elif board['4']==f'{input2}' and board['6']==f'{input2}' and board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        # win row 3
+                        elif board['7']==f'{input2}' and board['8']==f'{input2}' and board['9']=='9':
+                            board['9']=f'{input2}'
+                            player=1
+                            break
+                        elif board['8']==f'{input2}' and board['9']==f'{input2}' and board['7']=='7':
+                            board['7']=f'{input2}'
+                            player=1
+                            break
+                        elif board['7']==f'{input2}' and board['9']==f'{input2}' and board['8']=='8':
+                            board['8']=f'{input2}'
+                            player=1
+                            break
+                        # win diagonal 1
+                        elif board['1']==f'{input2}' and board['5']==f'{input2}' and board['9']=='9':
+                            board['9']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input2}' and board['9']==f'{input2}' and board['1']=='1':
+                            board['1']=f'{input2}'
+                            player=1
+                            break
+                        elif board['1']==f'{input2}' and board['9']==f'{input2}' and board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        # win diagonal 2
+                        elif board['3']==f'{input2}' and board['5']==f'{input2}' and board['7']=='7':
+                            board['7']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input2}' and board['7']==f'{input2}' and board['3']=='3':
+                            board['3']=f'{input2}'
+                            player=1
+                            break
+                        elif board['3']==f'{input2}' and board['7']==f'{input2}' and board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        # ruin colum 1
+                        elif board['1']==f'{input1}' and board['4']==f'{input1}' and board['7']=='7':
+                            board['7']=f'{input2}'
+                            player=1
+                            break
+                        elif board['4']==f'{input1}' and board['7']==f'{input1}' and board['1']=='1':
+                            board['1']=f'{input2}'
+                            player=1
+                            break
+                        elif board['1']==f'{input1}' and board['7']==f'{input1}' and board['4']=='4':
+                            board['4']=f'{input2}'
+                            player=1
+                            break
+                        # ruin colum 2
+                        elif board['2']==f'{input1}' and board['5']==f'{input1}' and board['8']=='8':
+                            board['8']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input1}' and board['8']==f'{input1}' and board['2']=='2':
+                            board['2']=f'{input2}'
+                            player=1
+                            break
+                        elif board['2']==f'{input1}' and board['8']==f'{input1}' and board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        # ruin colum 3
+                        elif board['3']==f'{input1}' and board['6']==f'{input1}' and board['9']=='9':
+                            board['9']=f'{input2}'
+                            player=1
+                            break
+                        elif board['6']==f'{input1}' and board['9']==f'{input1}' and board['3']=='3':
+                            board['3']=f'{input2}'
+                            player=1
+                            break
+                        elif board['3']==f'{input1}' and board['9']==f'{input1}' and board['6']=='6':
+                            board['6']=f'{input2}'
+                            player=1
+                            break
+                        # ruin row 1
+                        elif board['1']==f'{input1}' and board['2']==f'{input1}' and board['3']=='3':
+                            board['3']=f'{input2}'
+                            player=1
+                            break
+                        elif board['2']==f'{input1}' and board['3']==f'{input1}' and board['1']=='1':
+                            board['1']=f'{input2}'
+                            player=1
+                            break
+                        elif board['1']==f'{input1}' and board['3']==f'{input1}' and board['2']=='2':
+                            board['2']=f'{input2}'
+                            player=1
+                            break
+                        # ruin row 2
+                        elif board['4']==f'{input1}' and board['5']==f'{input1}' and board['6']=='6':
+                            board['6']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input1}' and board['6']==f'{input1}' and board['4']=='4':
+                            board['4']=f'{input2}'
+                            player=1
+                            break
+                        elif board['4']==f'{input1}' and board['6']==f'{input1}' and board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        # ruin row 3
+                        elif board['7']==f'{input1}' and board['8']==f'{input1}' and board['9']=='9':
+                            board['9']=f'{input2}'
+                            player=1
+                            break
+                        elif board['8']==f'{input1}' and board['9']==f'{input1}' and board['7']=='7':
+                            board['7']=f'{input2}'
+                            player=1
+                            break
+                        elif board['7']==f'{input1}' and board['9']==f'{input1}' and board['8']=='8':
+                            board['8']=f'{input2}'
+                            player=1
+                            break
+                        # ruin diagonal 1
+                        elif board['1']==f'{input1}' and board['5']==f'{input1}' and board['9']=='9':
+                            board['9']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input1}' and board['9']==f'{input1}' and board['1']=='1':
+                            board['1']=f'{input2}'
+                            player=1
+                            break
+                        elif board['1']==f'{input1}' and board['9']==f'{input1}' and board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        # ruin diagonal 2
+                        elif board['3']==f'{input1}' and board['5']==f'{input1}' and board['7']=='7':
+                            board['7']=f'{input2}'
+                            player=1
+                            break
+                        elif board['5']==f'{input1}' and board['7']==f'{input1}' and board['3']=='3':
+                            board['3']=f'{input2}'
+                            player=1
+                            break
+                        elif board['3']==f'{input1}' and board['7']==f'{input1}' and board['5']=='5':
+                            board['5']=f'{input2}'
+                            player=1
+                            break
+                        
+                        elif board['1']==f'{input1}' or board['3']==f'{input1}' or board['7']==f'{input1}' or board['9']==f'{input1}':
+                        # edges
+                            if board['4']=='4':
+                                board['4']=f'{input2}'
+                                player=1
+                                break
+                            
+                        if board['2']==f'{input1}' or board['4']==f'{input1}' or board['6']==f'{input1}' or board['8']==f'{input1}':
+                        # corners
+                            if  board['1']=='1':
+                                board['1']=f'{input2}'
+                                player=1
+                                break
+                            elif board['3']=='3':
+                                board['3']=f'{input2}'
+                                player=1
+                                break
+                            elif board['7']=='7':
+                                board['7']=f'{input2}'
+                                player=1
+                                break
+                            elif board['9']=='9':
+                                board['9']=f'{input2}'
+                                player=1
+                                break
+                            #corners
+                        if  board['1']=='1':
+                            board['1']=f'{input2}'
+                            player=1
+                            break
+                        elif board['3']=='3':
+                            board['3']=f'{input2}'
+                            player=1
+                            break
+                        elif board['7']=='7':
+                            board['7']=f'{input2}'
+                            player=1
+                            break
+                        elif board['9']=='9':
+                            board['9']=f'{input2}'
+                            player=1
+                            break
+                            #edges
+                        if board['2']=='2':
+                            board['2']=f'{input2}'
+                            player=1
+                            break
+                        elif board['4']=='4':
+                            board['4']=f'{input2}'
+                            player=1
+                            break
+                        elif board['6']=='6':
+                            board['6']=f'{input2}'
+                            player=1
+                            break
+                        elif board['8']=='8':
+                            board['8']=f'{input2}'
+                            player=1
+                            break
+                        
+                        
+                total_moves += 1
+                print('_____________________')
+        
+            again=input("Want to play again. Press y for yes or n for no: ")
+            again=again.upper()
+            
+            while again!='N' or again!='Y':
+                if again=='Y':
+                    break
+                elif again=='N':
+                    choice1=exit1()
+                    if choice1==0:
+                        again='Y'
+                    break
+                else:
+                    print('Invalid input. Please enter Y for yes or N for no.')
+                    again=input('Want to play again. Press y for yes or n for no: : ')
+                    again=again.upper()  
+                    continue
+                continue
+            
+main()
+      
